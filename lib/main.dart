@@ -10,26 +10,43 @@ import 'package:flutter/material.dart';
 //short hand to write a function  which has one line of code
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
-  var questionIndex = 0;
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _MyAppState();
+  }
+}
 
-  void answers() {
-    questionIndex = questionIndex + 1;
-    print(questionIndex);
+// leading underscore is special sytanx in dart file that  changes the class from public to private
+class _MyAppState extends State<MyApp> {
+  var _questionIndex = 0;
+
+  void _answers() {
+    setState(() {
+      // is method  by the state class
+
+      _questionIndex = _questionIndex + 1;
+    });
+
+    print(_questionIndex);
   }
 
   @override
   Widget build(BuildContext context) {
-    var questions = ['what\'s your fav color?', 'what\'s your fav animal?'];
+    var questions = [
+      'what\'s your fav color?',
+      'what\'s your fav animal?',
+    ];
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('My First APP'),
+          title: Text('this is first app'),
         ),
         body: Column(
           children: [
-            Text("This is first question!"),
-            RaisedButton(child: Text("answer 1"), onPressed: answers),
+            Text(questions[_questionIndex]),
+            RaisedButton(child: Text("answer 1"), onPressed: _answers),
             RaisedButton(
                 child: Text("answer 2"),
                 onPressed: () => print("second answer is choosen ")),
