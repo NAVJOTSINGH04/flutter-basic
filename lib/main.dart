@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import './question.dart';
 //material.dart flutter widget implementing material design  guidline by android os
 
 // void main() {
@@ -45,7 +47,7 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: [
-            Text(questions[_questionIndex]),
+            Question(questions[_questionIndex]),
             RaisedButton(child: Text("answer 1"), onPressed: _answers),
             RaisedButton(
                 child: Text("answer 2"),
