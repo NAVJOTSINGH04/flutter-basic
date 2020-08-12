@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './question.dart';
+import './answer.dart';
 //material.dart flutter widget implementing material design  guidline by android os
 
 // void main() {
@@ -36,9 +37,20 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    var questions = [
-      'what\'s your fav color?',
-      'what\'s your fav animal?',
+    //Lists give you an ordered list of single values, identified by an index. Maps use key-value pairs where you identify values by their key.
+    const questions = [
+      {
+        'questionText': 'what\'s your fav color?',
+        'ans': ['red', 'black', 'green', 'yellow'],
+      },
+      {
+        'questionText': 'what\'s your fav animal?',
+        'ans': ['dog', 'cat', 'elephant', 'lion'],
+      },
+      {
+        'questionText': 'what\'s your fav  teacher?',
+        'ans': ['max', 'max', 'max', 'max'],
+      }
     ];
     return MaterialApp(
       home: Scaffold(
@@ -47,17 +59,10 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: [
-            Question(questions[_questionIndex]),
-            RaisedButton(child: Text("answer 1"), onPressed: _answers),
-            RaisedButton(
-                child: Text("answer 2"),
-                onPressed: () => print("second answer is choosen ")),
-            RaisedButton(
-                child: Text("answer 3"),
-                onPressed: () {
-                  //..anonymous function is used when function is used only ones
-                  print("3rd answer is choosen ");
-                })
+            Question(questions[_questionIndex]['questionText']),
+            ...(questions[_questionIndex]['ans'] as List<String>).map((answer) {
+              return Answer(_answers, answer);
+            }).toList()
           ],
         ),
       ),
