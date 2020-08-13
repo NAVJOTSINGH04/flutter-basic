@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './question.dart';
-import './answer.dart';
+import './quiz.dart';
+import './result.dart';
 //material.dart flutter widget implementing material design  guidline by android os
 
 // void main() {
@@ -23,9 +23,30 @@ class MyApp extends StatefulWidget {
 
 // leading underscore is special sytanx in dart file that  changes the class from public to private
 class _MyAppState extends State<MyApp> {
+  //Lists give you an ordered list of single values, identified by an index. Maps use key-value pairs where you identify values by their key.
+  final _questions = const [
+    {
+      'questionText': 'what\'s your fav color?',
+      'ans': ['red', 'black', 'green', 'yellow'],
+    },
+    {
+      'questionText': 'what\'s your fav animal?',
+      'ans': ['dog', 'cat', 'elephant', 'lion'],
+    },
+    {
+      'questionText': 'what\'s your fav  teacher?',
+      'ans': ['max', 'max', 'max', 'max'],
+    }
+  ];
+
   var _questionIndex = 0;
 
   void _answers() {
+    if (_questionIndex < _questions.length) {
+      print('we have more questions');
+    } else {
+      print('no more questions');
+    }
     setState(() {
       // is method  by the state class
 
@@ -37,36 +58,18 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    //Lists give you an ordered list of single values, identified by an index. Maps use key-value pairs where you identify values by their key.
-    const questions = [
-      {
-        'questionText': 'what\'s your fav color?',
-        'ans': ['red', 'black', 'green', 'yellow'],
-      },
-      {
-        'questionText': 'what\'s your fav animal?',
-        'ans': ['dog', 'cat', 'elephant', 'lion'],
-      },
-      {
-        'questionText': 'what\'s your fav  teacher?',
-        'ans': ['max', 'max', 'max', 'max'],
-      }
-    ];
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('this is first app'),
-        ),
-        body: Column(
-          children: [
-            Question(questions[_questionIndex]['questionText']),
-            ...(questions[_questionIndex]['ans'] as List<String>).map((answer) {
-              return Answer(_answers, answer);
-            }).toList()
-          ],
-        ),
-      ),
-    ); // scaffold gives a basic design and structure and color scheme giving a regular UI that looks like a  regular mobile app
+        home: Scaffold(
+            appBar: AppBar(
+              title: Text('this is first app'),
+            ),
+            body: _questionIndex < _questions.length
+                ? Quiz(
+                    answers: _answers,
+                    questions: _questions,
+                    questionIndex: _questionIndex,
+                  )
+                : Result())); // scaffold gives a basic design and structure and color scheme giving a regular UI that looks like a  regular mobile app
   }
 }
 
