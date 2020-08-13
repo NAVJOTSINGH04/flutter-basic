@@ -27,21 +27,43 @@ class _MyAppState extends State<MyApp> {
   final _questions = const [
     {
       'questionText': 'what\'s your fav color?',
-      'ans': ['red', 'black', 'green', 'yellow'],
+      'ans': [
+        {'text': 'red', 'score': 10},
+        {'text': 'black', 'score': 1},
+        {'text': 'green', 'score': 20},
+        {'text': 'yellow', 'score': 30}
+      ],
     },
     {
       'questionText': 'what\'s your fav animal?',
-      'ans': ['dog', 'cat', 'elephant', 'lion'],
+      'ans': [
+        {'text': 'dog', 'score': 1},
+        {'text': 'cat', 'score': 30},
+        {'text': 'elephant', 'score': 20},
+        {'text': 'lion', 'score': 10}
+      ],
     },
     {
       'questionText': 'what\'s your fav  teacher?',
-      'ans': ['max', 'max', 'max', 'max'],
+      'ans': [
+        {'text': 'max', 'score': 1},
+        {'text': 'max', 'score': 1},
+        {'text': 'max', 'score': 1},
+        {'text': 'max', 'score': 1}
+      ],
     }
   ];
 
   var _questionIndex = 0;
+  var _totalScore = 0;
 
-  void _answers() {
+  void _resetQuiz() {
+    _questionIndex = 0;
+    _totalScore = 0;
+  }
+
+  void _answers(int score) {
+    _totalScore += score;
     if (_questionIndex < _questions.length) {
       print('we have more questions');
     } else {
@@ -69,7 +91,8 @@ class _MyAppState extends State<MyApp> {
                     questions: _questions,
                     questionIndex: _questionIndex,
                   )
-                : Result())); // scaffold gives a basic design and structure and color scheme giving a regular UI that looks like a  regular mobile app
+                : Result(_totalScore,
+                    _resetQuiz))); // scaffold gives a basic design and structure and color scheme giving a regular UI that looks like a  regular mobile app
   }
 }
 
